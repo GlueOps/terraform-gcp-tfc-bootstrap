@@ -2,13 +2,14 @@ variable "slack_token" { sensitive = true }
 
 variable "org_name" {}
 variable "tfc_email" {}
-variable "terraform_version" {}
 
 variable "github_token_id" {}
 variable "githhub_org_name" {}
 variable "vcs_repo" {}
+variable "terraform_version" { default = "1.1.9" }
 
-variable "environments" {
+
+variable "projects" {
   type = list(string)
   default = [
     "dev",
@@ -19,19 +20,18 @@ variable "environments" {
 }
 
 variable "notification_triggers" {
-  type = list(string)
-  default = [ "run:needs_attention" ]
+  type    = list(string)
+  default = ["run:needs_attention"]
 }
 
 variable "workspaces" {
-  type = list(map)
   default = [
     {
-      workspace = "gcp-organization"
-      vcs_branch = "main"
-      envs = [ "dev", "stage", "prod" ]
+      workspace         = "gcp-gke"
+      vcs_branch        = "main"
+      envs              = ["dev", "stage", "prod"]
       working_directory = "gke/tf"
-      auto_apply = false
-    }
+      auto_apply        = false
+  }]
 }
 

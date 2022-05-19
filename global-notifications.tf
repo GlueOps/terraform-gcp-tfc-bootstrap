@@ -4,7 +4,7 @@ resource "tfe_notification_configuration" "slack" {
   enabled          = true
   destination_type = "slack"
   url              = "https://hooks.slack.com/services/${var.slack_token}"
-  triggers         = local.notification_triggers
+  triggers         = var.notification_triggers
   workspace_id     = each.key
 }
 
